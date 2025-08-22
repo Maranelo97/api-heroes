@@ -31,13 +31,13 @@ router.get("/", async (req, res) => {
   const offset = (page - 1) * limit;
 
   try {
-    const result = await db.query("SELECT * FROM _heroes LIMIT $1 OFFSET $2", [
+    const result = await db.query("SELECT * FROM heroes LIMIT $1 OFFSET $2", [
       limit,
       offset,
     ]);
     const rows = result.rows;
 
-    const countResult = await db.query("SELECT COUNT(*) AS total FROM _heroes");
+    const countResult = await db.query("SELECT COUNT(*) AS total FROM heroes");
     const total = parseInt(countResult.rows[0].total, 10);
 
     res.json({
@@ -54,7 +54,7 @@ router.get("/", async (req, res) => {
 
 router.get("/:id", async (req, res) => {
   try {
-    const result = await db.query("SELECT * FROM _heroes WHERE id = $1", [
+    const result = await db.query("SELECT * FROM heroes WHERE id = $1", [
       req.params.id,
     ]);
     const rows = result.rows;
